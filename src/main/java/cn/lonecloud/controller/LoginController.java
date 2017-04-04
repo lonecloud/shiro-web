@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Created by lonecloud on 17/4/3.
+ * 登录页面
+ * @author lonecloud
  */
 @Controller
 public class LoginController {

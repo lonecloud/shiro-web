@@ -1,7 +1,10 @@
 package cn.lonecloud.expection;
 
 /**
- * Created by lonecloud on 17/4/4.
+ * 自定义异常类
+ * @author lonecloud
+ * @Date 2017.4.4
+ * @Version 1.0
  */
 public class SysException extends RuntimeException {
 

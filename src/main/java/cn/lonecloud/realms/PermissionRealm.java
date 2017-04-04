@@ -6,7 +6,9 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.realm.Realm;
 
 /**
- * Created by lonecloud on 17/4/3.
+ * 用于自定义realm
+ * @author lonecloud
+ *
  */
 public class PermissionRealm implements Realm {
 

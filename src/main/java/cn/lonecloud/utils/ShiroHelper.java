@@ -6,7 +6,8 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 
 /**
- * Created by lonecloud on 17/4/4.
+ * shiro帮助类
+ * @author lonecloud
  */
 public class ShiroHelper {
 
