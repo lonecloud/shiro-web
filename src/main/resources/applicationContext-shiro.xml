@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--配置shiro管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--缓存-->
+        <property name="cacheManager" ref="ehCacheManager"></property>
+        <!--自定义realm-->
+        <property name="realm" ref="permissionRealm"></property>
+    </bean>
+    <!--配置shiro 的缓存-->
+    <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
+    </bean>
+    <bean id="permissionRealm" class="cn.lonecloud.realms.PermissionRealm"/>
+    <!--生命周期回收器-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+    <!--支持注解-->
+    <bean class="org.springframework.aop.framework.DefaultAopProxyFactory"
+          depends-on="lifecycleBeanPostProcessor"></bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"></property>
+    </bean>
+    <!--名字必须和web.xml里面的filter-name一样-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+        <property name="loginUrl" value="/login"></property>
+        <property name="successUrl" value="/main"></property>
+        <property name="unauthorizedUrl" value="/noperssion"></property>
+        <!-- 1.anon 匿名访问
+             2.authc 认证访问
+        -->
+        <property name="filterChainDefinitions">
+            <value>
+                /login =anon
+                /dologin=anon
+                /assert/* =anon
+                /** = authc
+            </value>
+        </property>
+    </bean>
+</beans>
