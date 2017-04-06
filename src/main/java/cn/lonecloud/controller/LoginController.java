@@ -55,4 +55,14 @@ public class LoginController {
         }
         return "redirect:/main";
     }
+
+    /**
+     * 登出
+     * @return
+     */
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public String logout(){
+        return "redirect:logout";
+    }
+
 }

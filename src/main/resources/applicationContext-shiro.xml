@@ -33,8 +33,9 @@
         -->
         <property name="filterChainDefinitions">
             <value>
-                /login =anon
-                /doLogin=anon
+                /login = anon
+                /doLogin = anon
+                /logout = logout
                 /assert/* =anon
                 /** = authc
             </value>
