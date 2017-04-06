@@ -34,7 +34,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /login =anon
-                /dologin=anon
+                /doLogin=anon
                 /assert/* =anon
                 /** = authc
             </value>

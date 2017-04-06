@@ -33,11 +33,10 @@
         <div class="col-xs-6 col-md-4 col-center-block">
             <form class="form-signin" method="post" action="${pageContext.request.contextPath}/doLogin">
                 <h2 class="form-signin-heading ">请登录${msg}</h2>
-                <input type="hidden" name="location" id="location">
                 <label for="username" class="sr-only">用户名</label>
-                <input type="text" id="username" class="form-control" placeholder="用户名" required autofocus>
+                <input type="text" id="username" class="form-control" placeholder="用户名" name="username" required autofocus>
                 <label for="inputPassword" class="sr-only">密码</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+                <input type="password" id="inputPassword" class="form-control" placeholder="密码" name="password" required>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" value="remember-me">
