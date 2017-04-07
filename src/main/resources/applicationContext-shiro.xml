@@ -13,7 +13,18 @@
     <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
     </bean>
-    <bean id="permissionRealm" class="cn.lonecloud.realms.PermissionRealm"/>
+    <!--shiro加密策略MD5-->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <!--加密的策略-->
+        <property name="hashAlgorithmName" value="MD5"/>
+        <!--加密的次数-->
+        <property name="hashIterations" value="10"/>
+    </bean>
+    <!--配置自定义拦截Realm-->
+    <bean id="permissionRealm" class="cn.lonecloud.realms.PermissionRealm">
+        <!--配置加密算法-->
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+    </bean>
     <!--生命周期回收器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
     <!--支持注解-->
@@ -30,6 +41,7 @@
         <property name="unauthorizedUrl" value="/noperssion"></property>
         <!-- 1.anon 匿名访问
              2.authc 认证访问
+             3.logout 登出
         -->
         <property name="filterChainDefinitions">
             <value>
