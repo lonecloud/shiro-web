@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: lonecloud
@@ -31,6 +32,9 @@
 <div class="container">
     <div class="row myCenter">
         <div class="col-xs-6 col-md-4 col-center-block">
+            <shiro:guest>
+                欢迎访问此系统,游客
+            </shiro:guest>
             <form class="form-signin" method="post" action="${pageContext.request.contextPath}/doLogin">
                 <h2 class="form-signin-heading ">请登录${msg}</h2>
                 <label for="username" class="sr-only">用户名</label>

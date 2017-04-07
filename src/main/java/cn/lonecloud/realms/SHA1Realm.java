@@ -16,7 +16,6 @@ public class SHA1Realm extends AuthenticatingRealm {
     private static final Log log= LogFactory.getLog(SHA1Realm.class);
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        if (authenticationToken instanceof UsernamePasswordToken) {
             log.debug("第二个Relam------>SHA1Realm");
             UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
             //
@@ -30,11 +29,12 @@ public class SHA1Realm extends AuthenticatingRealm {
             }
             String user = "root";//用户
             String password = "3db389fc6ecff401a4d0633d12d5c1a961d7e014";//该处获取的为数据库中获取密码
+            if ("user".equals(username)){
+                password="3f1ed6d8575e62356988b8e1de70f9164e9d9a5a";
+            }
             ByteSource salt= ByteSource.Util.bytes(username);//使用盐值保证密码的唯一性一般唯一的使用ID或者用户登录名
             //设置认证信息比对密码由shiro进行比对
 //            SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(username, password, getName());
             return new SimpleAuthenticationInfo(username,password,salt,getName());
-        }
-        return null;
     }
 }

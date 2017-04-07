@@ -41,7 +41,7 @@ public class ShiroTest {
     public void MD5Lock(){
         String lockName="MD5";//加密算法
         String source="1234";//原密码
-        Object salt=ByteSource.Util.bytes("admin");
+        Object salt=ByteSource.Util.bytes("user");
         //盐值:使得相同的密码但是加密后的密码变成不同使用这个方法获取ByteSource.Util.bytes("admin")
         int count=10;//MD5加密次数
         SimpleHash md5 = new SimpleHash(lockName,source,salt,count);
@@ -51,7 +51,7 @@ public class ShiroTest {
     public void SHA1Lock(){
         String lockName="SHA1";//加密算法
         String source="1234";//原密码
-        Object salt=ByteSource.Util.bytes("admin");
+        Object salt=ByteSource.Util.bytes("user");
         //盐值:使得相同的密码但是加密后的密码变成不同使用这个方法获取ByteSource.Util.bytes("admin")
         int count=10;//MD5加密次数
         SimpleHash md5 = new SimpleHash(lockName,source,salt,count);

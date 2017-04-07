@@ -8,6 +8,13 @@
         <property name="cacheManager" ref="ehCacheManager"/>
         <!--多Realm匹配需要使用这个-->
         <property name="authenticator" ref="authenticator"/>
+        <!--多Realm最好配置在此处授权时候需要用到-->
+        <property name="realms">
+            <list>
+                <ref bean="permissionRealm"/>
+                <ref bean="sHA1Realm"/>
+            </list>
+        </property>
     </bean>
     <!--配置shiro 的缓存-->
     <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
@@ -44,11 +51,19 @@
     </bean>
     <!--配置多Realm的适配器-->
     <bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
-        <property name="realms">
-            <list>
-                <ref bean="permissionRealm"/>
-                <ref bean="sHA1Realm"/>
-            </list>
+        <!--<property name="realms">-->
+        <!--<list>-->
+        <!--<ref bean="permissionRealm"/>-->
+        <!--<ref bean="sHA1Realm"/>-->
+        <!--</list>-->
+        <!--</property>-->
+        <property name="authenticationStrategy">
+            <!--至少有一个Realm认证成功后就可认证成功,只返回成功的Relam,如果所有的都认证成功则返回所有默认-->
+            <bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
+            <!--第一个认证成功就可以返回但是只返回第一个认证成功的realm-->
+            <!--<bean class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy"/>-->
+            <!--所有的Realm都验证成功后才返回成功-->
+            <!--<bean class="org.apache.shiro.authc.pam.AllSuccessfulStrategy"/>-->
         </property>
     </bean>
     <!--生命周期回收器-->
@@ -64,19 +79,30 @@
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login"/>
         <property name="successUrl" value="/main"/>
-        <property name="unauthorizedUrl" value="/noperssion"/>
+        <property name="unauthorizedUrl" value="/noerssion"/>
         <!-- 1.anon 匿名访问
              2.authc 认证访问
              3.logout 登出
         -->
-        <property name="filterChainDefinitions">
-            <value>
-                /login = anon
-                /doLogin = anon
-                /logout = logout
-                /assert/* =anon
-                /** = authc
-            </value>
+        <!--工厂类产出该Map进行数据过滤-->
+        <property name="filterChainDefinitionMap">
+            <bean factory-bean="chainDefinitionFactory"
+                  factory-method="buildFilterChainDefinition"></bean>
         </property>
+        <!--<property name="filterChainDefinitions">-->
+        <!--<value>-->
+        <!---->
+        <!--/login = anon-->
+        <!--/doLogin = anon-->
+        <!--/logout = logout-->
+        <!--/assert/* =anon-->
+        <!--/admin = roles[admin]-->
+        <!--/user = roles[users]-->
+        <!--/** = authc-->
+        <!--</value>-->
+        <!--</property>-->
     </bean>
+    <!--用于创建Map的工厂方法-->
+    <bean id="chainDefinitionFactory" class="cn.lonecloud.factory.FilterChainDefinitionFactory"></bean>
+
 </beans>

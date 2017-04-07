@@ -7,10 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -63,6 +60,20 @@ public class LoginController {
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public String logout(){
         return "redirect:logout";
+    }
+
+    @GetMapping("/main")
+    public String main(){
+        return "/main";
+    }
+
+    @GetMapping("/user")
+    public String user(){
+        return "/user/user";
+    }
+    @GetMapping("/admin")
+    public String admin(){
+        return "/user/admin";
     }
 
 }
