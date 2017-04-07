@@ -12,9 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import java.beans.Transient;
 
-/**
- * Created by lonecloud on 17/4/4.
- */
 //@Transactional
 @RunWith(value = SpringJUnit4ClassRunner.class)//Spring自动化测试
 @ContextConfiguration({"classpath:applicationContext-shiro-test.xml"})//加载测试化文件
@@ -36,13 +33,23 @@ public class ShiroTest {
             };
             Thread thread=new Thread(runnable);
             thread.start();
-            thread.sleep(1000);
+            Thread.sleep(1000);
         }
 
     }
     @Test
     public void MD5Lock(){
         String lockName="MD5";//加密算法
+        String source="1234";//原密码
+        Object salt=ByteSource.Util.bytes("admin");
+        //盐值:使得相同的密码但是加密后的密码变成不同使用这个方法获取ByteSource.Util.bytes("admin")
+        int count=10;//MD5加密次数
+        SimpleHash md5 = new SimpleHash(lockName,source,salt,count);
+        System.out.println(md5);
+    }
+    @Test
+    public void SHA1Lock(){
+        String lockName="SHA1";//加密算法
         String source="1234";//原密码
         Object salt=ByteSource.Util.bytes("admin");
         //盐值:使得相同的密码但是加密后的密码变成不同使用这个方法获取ByteSource.Util.bytes("admin")

@@ -5,13 +5,13 @@
     <!--配置shiro管理器-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!--缓存-->
-        <property name="cacheManager" ref="ehCacheManager"></property>
-        <!--自定义realm-->
-        <property name="realm" ref="permissionRealm"></property>
+        <property name="cacheManager" ref="ehCacheManager"/>
+        <!--自定义单独realm-->
+        <property name="realm" ref="permissionRealm"/>
     </bean>
     <!--配置shiro 的缓存-->
     <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
     </bean>
     <!--shiro加密策略MD5-->
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
@@ -26,19 +26,19 @@
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
     <!--生命周期回收器-->
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
     <!--支持注解-->
     <bean class="org.springframework.aop.framework.DefaultAopProxyFactory"
-          depends-on="lifecycleBeanPostProcessor"></bean>
+          depends-on="lifecycleBeanPostProcessor"/>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager"></property>
+        <property name="securityManager" ref="securityManager"/>
     </bean>
     <!--名字必须和web.xml里面的filter-name一样-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        <property name="securityManager" ref="securityManager"></property>
-        <property name="loginUrl" value="/login"></property>
-        <property name="successUrl" value="/main"></property>
-        <property name="unauthorizedUrl" value="/noperssion"></property>
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login"/>
+        <property name="successUrl" value="/main"/>
+        <property name="unauthorizedUrl" value="/noperssion"/>
         <!-- 1.anon 匿名访问
              2.authc 认证访问
              3.logout 登出
