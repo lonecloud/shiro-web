@@ -20,6 +20,6 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="regex" expression="cn.lonecloud.dao"/>
     </context:component-scan>
-    <import resource="shiro/applicationContext-shiro-multi.xml"/>
+    <import resource="shiro/applicationContext-shiro-multi-noSessionDao.xml"/>
     <import resource="applicationContext-mybatis.xml"/>
 </beans>

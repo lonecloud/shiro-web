@@ -29,7 +29,7 @@ The following properties are translated:
 user.home - User's home directory
 user.dir - User's current working directory
 java.io.tmpdir - Default temp file path -->
-    <diskStore path="java.io.tmpdir/shiro-spring-sample"/>
+    <diskStore path="java.io.tmpdir/shiro-web"/>
 
 
     <!--Default Cache configuration. These will applied to caches programmatically created through
@@ -72,7 +72,7 @@ java.io.tmpdir - Default temp file path -->
             overflowToDisk="false"
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"
-            />
+    />
 
     <!-- We want eternal="true" (with no timeToIdle or timeToLive settings) because Shiro manages session
 expirations explicitly.  If we set it to false and then set corresponding timeToIdle and timeToLive properties,
@@ -94,5 +94,18 @@ even after a JVM restart.  -->
            eternal="false"
            timeToLiveSeconds="600"
            overflowToDisk="false"/>
-
+    <cache name="authorizationCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToLiveSeconds="1800"
+           timeToIdleSeconds="3600"
+           overflowToDisk="false"
+           statistics="true"/>
+    <cache name="authenticationCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToLiveSeconds="1800"
+           timeToIdleSeconds="3600"
+           overflowToDisk="false"
+           statistics="true"/>
 </ehcache>

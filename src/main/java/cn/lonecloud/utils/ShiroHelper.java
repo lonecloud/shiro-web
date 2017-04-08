@@ -19,11 +19,11 @@ public class ShiroHelper {
      * @param password
      * @return
      */
-    public Subject checkAuth(String username, String password) {
+    public Subject checkAuth(String username, String password,boolean rememberMe) {
         boolean authenticated = currentUser.isAuthenticated();
         if (!authenticated) {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-            token.setRememberMe(true);
+            token.setRememberMe(rememberMe);
             try {
                 currentUser.login(token);
             } catch (UnknownAccountException uae) {

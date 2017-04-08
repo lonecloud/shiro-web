@@ -47,10 +47,14 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
+    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("remember") String remember, Model model) {
+        boolean isRemember = false;
+        if (remember != null && "true".equals(remember)) {
+            isRemember = true;
+        }
         ShiroHelper shiroHelper = new ShiroHelper();
         try {
-            shiroHelper.checkAuth(username, password);
+            shiroHelper.checkAuth(username, password, isRemember);
         } catch (Exception e) {
             if (e instanceof SysException) {
                 String msg = ((SysException) e).getMsg();
@@ -89,9 +93,9 @@ public class LoginController {
 
     @RequiresRoles("admin")
     @GetMapping("/testShiro")
-    public String testShiro(HttpServletRequest request){
+    public String testShiro(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("test","测试shiroSession和Http中的Session同步返回值");
+        session.setAttribute("test", "测试shiroSession和Http中的Session同步返回值");
         shiroService.testShiro();
         return "/main";
     }

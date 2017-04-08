@@ -27,7 +27,7 @@ public class ShiroTest {
                 @Override
                 public void run() {
                     ShiroHelper shiroHelper = new ShiroHelper();
-                    shiroHelper.checkAuth("123", "123");
+                    shiroHelper.checkAuth("123", "123",true);
                     System.out.println("1213");
                 }
             };
