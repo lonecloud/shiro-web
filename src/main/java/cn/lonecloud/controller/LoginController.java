@@ -47,7 +47,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("remember") String remember, Model model) {
+    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam(value = "remember", required = false) String remember, Model model) {
         boolean isRemember = false;
         if (remember != null && "true".equals(remember)) {
             isRemember = true;

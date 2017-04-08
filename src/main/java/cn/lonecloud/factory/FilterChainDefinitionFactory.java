@@ -11,7 +11,10 @@ public class FilterChainDefinitionFactory {
 
     /**
      * 创建FilterChainDefinition对象
-     *
+     *  1.anon 匿名访问
+     *  2.authc 认证访问
+     *  3.logout 登出
+     *  4.user 可以通过remberme 访问或者认证访问
      * @return
      */
     public Map<String, String> buildFilterChainDefinition() {
@@ -23,6 +26,7 @@ public class FilterChainDefinitionFactory {
         map.put("/assert/*", "anon");
         map.put("/admin", "roles[admin]");
         map.put("/user", "roles[users]");
+        map.put("/main","user");
         map.put("/**", "authc");
         return map;
     }
