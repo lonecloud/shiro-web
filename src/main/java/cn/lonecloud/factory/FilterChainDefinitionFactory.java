@@ -14,11 +14,11 @@ public class FilterChainDefinitionFactory {
      *
      * @return
      */
-    public LinkedHashMap<String, String> buildFilterChainDefinition() {
+    public Map<String, String> buildFilterChainDefinition() {
         //在这里进行对数据库的查询返回一个LinkedHashMap
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("/login", "anno");
-        map.put("/doLogin", "anno");
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("/login", "anon");
+        map.put("/doLogin", "anon");
         map.put("/logout", "logout");
         map.put("/assert/*", "anon");
         map.put("/admin", "roles[admin]");

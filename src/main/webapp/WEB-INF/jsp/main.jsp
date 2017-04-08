@@ -35,6 +35,7 @@
 <shiro:lacksRole name="admin">
     <a href="${ctx}/user">用户页面</a><br>
 </shiro:lacksRole>
+<a href="${ctx}/testShiro">测试session同步页面</a><br>
 
 <a href="${ctx}/logout">登出</a><br>
 </body>

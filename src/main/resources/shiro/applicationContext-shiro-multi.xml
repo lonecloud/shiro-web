@@ -15,6 +15,8 @@
                 <ref bean="sHA1Realm"/>
             </list>
         </property>
+        <!--配置session控制器-->
+        <property name="sessionManager" ref="sessionManager"/>
     </bean>
     <!--配置shiro 的缓存-->
     <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
@@ -104,5 +106,18 @@
     </bean>
     <!--用于创建Map的工厂方法-->
     <bean id="chainDefinitionFactory" class="cn.lonecloud.factory.FilterChainDefinitionFactory"></bean>
-
+    <!--sessionId生成策略-->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+    <!--sessionDao-->
+    <bean id="sessionDao" class="cn.lonecloud.realms.dao.SessionDao">
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+    </bean>
+    <!--session管理器-->
+    <bean  id="sessionManager" class="org.apache.shiro.session.mgt.DefaultSessionManager">
+        <property name="sessionDAO" ref="sessionDao"/>
+        <property name="globalSessionTimeout" value="10000"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+    </bean>
 </beans>
